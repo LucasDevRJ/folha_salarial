@@ -14,6 +14,12 @@ int main() {
 	printf("Digite o cargo do %s: ", nome);
 	fgets(cargo, sizeof(cargo), stdin);
 
+	cargo[strcspn(cargo, "\n")] = '\0';
+
+	printf("Digite a matricula do %s: ", nome);
+	fgets(matricula, sizeof(matricula), stdin);
+
 	printf("%s\n", nome);
 	printf("%s\n", cargo);
+	printf("%s\n", matricula);
 }
