@@ -11,9 +11,9 @@ int main() {
 	int quantidade_horas_extras;
 	double salario_base;
 	double salario_bruto;
-	double valor_hora = salario_base / media_horas_trabalhadas_mes;
-	double valor_hora_extra = valor_hora + (50 / 100);
-	double total_hora_extra = quantidade_horas_extras * valor_hora_extra;
+	double valor_hora;
+	double valor_hora_extra;
+	double total_hora_extra;
 
 	printf("Digite o nome completo do funcionario: ");
 	fgets(nome, sizeof(nome), stdin);
@@ -26,21 +26,25 @@ int main() {
 	cargo[strcspn(cargo, "\n")] = '\0';
 
 	printf("Digite o salario: ");
-	scanf("%d", &salario_base);
+	scanf("%lf", &salario_base);
 
 	printf("Digite a quantidade de horas extras exercidas: ");
-	scanf("%d", &horas_extras);
+	scanf("%d", &quantidade_horas_extras);
 
 	int segundos = time(0);
 	srand(segundos);
 	int numero_aleatorio = rand();
 	matricula = numero_aleatorio % 99999;
 
+	valor_hora = salario_base / media_horas_trabalhadas_mes;
+	valor_hora_extra = valor_hora + (valor_hora * 0.50);
+	total_hora_extra = quantidade_horas_extras * valor_hora_extra;
+
 	printf("--------------------|FOLHA SALARIAL|--------------------\n");
 	printf("Nome: %s\n", nome);
 	printf("Cargo: %s\n", cargo);
 	printf("Matricula: %d\n", matricula);
-	printf("Salario Base: %d\n", salario_base);
-	printf("Quantidade de horas extras: %d\n", horas_extras);
+	printf("Salario Base: %.2lf\n", salario_base);
+	printf("Horas Extras: %.2lf\n", total_hora_extra);
 	printf("--------------------------------------------------------\n");
 }
