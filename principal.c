@@ -7,8 +7,13 @@ int main() {
 	char nome[50];
 	char cargo[50];
 	int matricula;
-	double salario;
-	int horas_extras;
+	int media_horas_trabalhadas_mes = 220;
+	int quantidade_horas_extras;
+	double salario_base;
+	double salario_bruto;
+	double total_hora_extra;
+	double valor_hora = salario_base / media_horas_trabalhadas_mes;
+	double valor_hora_extra = valor_hora + (50 / 100);
 
 	printf("Digite o nome completo do funcionario: ");
 	fgets(nome, sizeof(nome), stdin);
@@ -21,10 +26,11 @@ int main() {
 	cargo[strcspn(cargo, "\n")] = '\0';
 
 	printf("Digite o salario: ");
-	scanf("%d", &salario);
+	scanf("%d", &salario_base);
 
 	printf("Digite a quantidade de horas extras exercidas: ");
 	scanf("%d", &horas_extras);
+
 
 	int segundos = time(0);
 	srand(segundos);
@@ -35,7 +41,7 @@ int main() {
 	printf("Nome: %s\n", nome);
 	printf("Cargo: %s\n", cargo);
 	printf("Matricula: %d\n", matricula);
-	printf("Salario: %d\n", salario);
+	printf("Salario: %d\n", salario_base);
 	printf("Horas extras: %d\n", horas_extras);
 	printf("-----------------------------------\n");
 }
