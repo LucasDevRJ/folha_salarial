@@ -17,6 +17,9 @@ int main() {
 	int quantidade_horas_noturnas;
 	double valor_hora_noturna;
 	double total_hora_noturna;
+	double percentual_comissao;
+	double valor_venda;
+	double comissao;
 
 	printf("Digite o nome completo do funcionario: ");
 	fgets(nome, sizeof(nome), stdin);
@@ -37,6 +40,13 @@ int main() {
 	printf("Digite a quantidade de horas noturnas exercidas: ");
 	scanf("%d", &quantidade_horas_noturnas);
 
+	printf("Digite o percentual de comissao: ");
+	scanf("%lf", &percentual_comissao);
+
+	printf("Digite o valor da venda: ");
+	scanf("%lf", &valor_venda);
+
+
 	//Lógica para gerar números aleatorios para a matrícula do funcionário
 	int segundos = time(0);
 	srand(segundos);
@@ -51,7 +61,10 @@ int main() {
 	valor_hora_noturna = valor_hora + (valor_hora * 0.20);
 	total_hora_noturna = quantidade_horas_noturnas * valor_hora_noturna;
 
-	salario_bruto = salario_base + total_hora_extra + total_hora_noturna;
+	percentual_comissao = percentual_comissao / 100;
+	comissao = percentual_comissao * valor_venda;
+
+	salario_bruto = salario_base + total_hora_extra + total_hora_noturna + comissao;
 
 	printf("--------------------|FOLHA SALARIAL|--------------------\n");
 	printf("Nome: %s\n", nome);
@@ -60,6 +73,7 @@ int main() {
 	printf("Salario Base: R$ %.2lf\n", salario_base);
 	printf("Horas Extras: R$ %.2lf\n", total_hora_extra);
 	printf("Horas Noturnas: R$ %.2lf\n", total_hora_noturna);
+	printf("Comissao: R$ %.2lf\n", comissao);
 	printf("Salario Bruto: R$ %.2lf\n", salario_bruto);
 	printf("--------------------------------------------------------\n");
 }
