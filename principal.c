@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <math.h>
+#include <ctype.h>
 
 int main() {
 	char nome[50];
@@ -24,7 +25,9 @@ int main() {
 	double valor_venda;
 	double valor_total_vendas;
 	double comissao;
+	char resposta_bonificacao;
 	double bonificacao;
+	double percentual_bonificacao;
 	double percentual_inss;
 	double valor_inss;
 	double valor_total_inss;
@@ -58,16 +61,32 @@ int main() {
 	printf("Digite a quantidade de horas noturnas exercidas: ");
 	scanf("%d", &quantidade_horas_noturnas);
 
-	printf("Digite o percentual de comissao: ");
-	scanf("%lf", &percentual_comissao);
-
 	printf("Digite a quantidade vendida: ");
 	scanf("%d", &quantidade_vendida);
+
+	if (quantidade_vendida > 0) {
+		printf("Digite o percentual de comissao: ");
+		scanf("%lf", &percentual_comissao);
+	}
 
 	for (int i = 0; i < quantidade_vendida; i++) {
 		printf("Digite o valor da %d venda: ", i + 1);
 		scanf("%lf", &valor_venda);
 		valor_total_vendas += valor_venda;
+	}
+
+	printf("S - Sim\n");
+	printf("Qualquer tecla - Nao\n");
+	printf("Cumpriu metas?\n");
+	printf("Digite S ou Qualquer tecla: \n");
+	scanf("%s", &resposta_bonificacao);
+
+	resposta_bonificacao = toupper(resposta_bonificacao);
+
+	if (resposta_bonificacao == 'S') {
+		printf("Digite o percentual da bonificacao: ");
+		scanf("%lf", &percentual_comissao);
+		bonificacao = salario_base * (percentual_bonificacao / 100);
 	}
 
 	printf("Digite o custo mensal com o vale transporte: R$ ");
@@ -94,7 +113,7 @@ int main() {
 
 	comissao = valor_total_vendas * percentual_comissao;
 
-	bonificacao = 0;
+	//bonificacao = 0;
 
 	salario_bruto = salario_base + total_hora_extra + total_hora_noturna + comissao + bonificacao;
 
