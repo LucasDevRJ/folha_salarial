@@ -33,6 +33,9 @@ int main() {
 	double deducao_fixa;
 	double valor_irrf;
 	double valor_total_irrf;
+	double valor_gasto_vale_transporte;
+	double percentual_vale_transporte;
+	double desconto_vale_transporte;
 
 	printf("Digite o nome completo do funcionario: ");
 	fgets(nome, sizeof(nome), stdin);
@@ -64,6 +67,9 @@ int main() {
 		scanf("%lf", &valor_venda);
 		valor_total_vendas += valor_venda;
 	}
+
+	printf("Digite o custo mensal com o vale transporte: R$ ");
+	scanf("%lf", &valor_gasto_vale_transporte);
 	
 	//Lógica para gerar números aleatorios para a matrícula do funcionário
 	int segundos = time(0);
@@ -177,6 +183,15 @@ int main() {
 
 	valor_total_irrf -= deducao_fixa;
 
+	percentual_vale_transporte = salario_bruto * 0.06;
+	if (valor_gasto_vale_transporte > percentual_vale_transporte) {
+		desconto_vale_transporte = percentual_vale_transporte;
+		printf("Desconto do VT: %.2lf\n", desconto_vale_transporte);
+	} else if (valor_gasto_vale_transporte < percentual_vale_transporte) {
+		desconto_vale_transporte = valor_gasto_vale_transporte;
+	}
+
+
 	printf("--------------------|FOLHA SALARIAL|--------------------\n");
 	printf("Nome: %s\n", nome);
 	printf("Cargo: %s\n", cargo);
@@ -188,6 +203,7 @@ int main() {
 	printf("Bonificacao: R$ %.2lf\n", bonificacao);
 	printf("INSS: R$ %.2lf\n", valor_total_inss);
 	printf("IRRF: R$ %.2lf\n", valor_total_irrf);
+	printf("Vale Transporte: R$ %.2lf\n", desconto_vale_transporte);
 	printf("Salario Bruto: R$ %.2lf\n", salario_bruto);
 	printf("--------------------------------------------------------\n");
 }
