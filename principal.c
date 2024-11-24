@@ -44,6 +44,7 @@ int main() {
 	double valor_plano_saude;
 	double percentual_plano_saude;
 	double custo_plano_saude;
+	double total_descontos;
 
 	printf("Digite o nome completo do funcionario: ");
 	fgets(nome, sizeof(nome), stdin);
@@ -89,7 +90,7 @@ int main() {
 	if (resposta_bonificacao == 'S') {
 		printf("Digite o percentual da bonificacao: ");
 		scanf("%lf", &percentual_comissao);
-		bonificacao = salario_base * (percentual_bonificacao / 100);
+		bonificacao = salario_base * (percentual_bonificacao / 100.0);
 	}
 
 	printf("Digite o custo mensal com o vale transporte: R$ ");
@@ -126,11 +127,7 @@ int main() {
 
 	custo_plano_saude = valor_plano_saude - (valor_plano_saude * (percentual_plano_saude / 100));
 
-	//bonificacao = 0;
-
 	salario_bruto = salario_base + total_hora_extra + total_hora_noturna + comissao + bonificacao;
-
-	//double casas_decimais = pow(NUMERO_DESLOCAMENTO, NUMERO_CASAS_DECIMAIS);
 
 	if (salario_bruto <= 1320.00 || salario_bruto > 1320.00) {
 		percentual_inss = 7.5 / 100;
@@ -181,41 +178,52 @@ int main() {
 		percentual_irrf = 0.0;
 		deducao_fixa = 0.0;
 	}
-	//2736.94
+	
 	if (base_calculo_irrf >= 2112.01) {
 		percentual_irrf = 7.5 / 100;
 		double maior_valor = base_calculo_irrf < 2826.65 ? base_calculo_irrf : 2826.65;
 		valor_irrf = fabs((2112.01 - maior_valor)) * percentual_irrf; 
-		deducao_fixa = 158.40;
+		if (maior_valor < base_calculo_irrf) {
+			deducao_fixa = 158.40;
+		}
 		printf("IRRF Faixa 2 R$ %.2lf\n", valor_irrf);
 		valor_total_irrf += valor_irrf;
+		printf("Valor total IRRF: %.2lf\n", valor_total_irrf);
 	}
 
 	if (base_calculo_irrf >= 2826.66) {
 		percentual_irrf = 15.0 / 100;
 		double maior_valor = base_calculo_irrf < 3751.05 ? base_calculo_irrf : 3751.05;
 		valor_irrf = fabs((2826.66 - maior_valor)) * percentual_irrf; 
-		deducao_fixa = 370.40;
+		if (maior_valor < base_calculo_irrf) {
+			deducao_fixa = 370.40;
+		}
 		printf("IRRF Faixa 3 R$ %.2lf\n", valor_irrf);
 		valor_total_irrf += valor_irrf;
+		printf("Valor total IRRF: %.2lf\n", valor_total_irrf);
+
 	}
 
 	if (base_calculo_irrf >= 3751.06) {
 		percentual_irrf = 22.5 / 100;
 		double maior_valor = base_calculo_irrf < 4664.68 ? base_calculo_irrf : 4664.68;
 		valor_irrf = fabs((3751.06 - maior_valor)) * percentual_irrf; 
-		deducao_fixa = 651.73;
+		if (maior_valor < base_calculo_irrf) {
+			deducao_fixa = 651.73;
+		}
 		printf("IRRF Faixa 4 R$ %.2lf\n", valor_irrf);
 		valor_total_irrf += valor_irrf;
+		printf("Valor total IRRF: %.2lf\n", valor_total_irrf);
 	}
 
 	if (base_calculo_irrf > 4664.68) {
 		percentual_irrf = 27.5 / 100;
-		double maior_valor = base_calculo_irrf < 4664.68 ? base_calculo_irrf : 4664.68;
+		double maior_valor = base_calculo_irrf > 4664.68 ? base_calculo_irrf : 4664.68;
 		valor_irrf = fabs((4664.68 - maior_valor)) * percentual_irrf; 
 		printf("IRRF Faixa 5 R$ %.2lf\n", valor_irrf);
 		valor_total_irrf += valor_irrf;
 		deducao_fixa = 884.96;
+		printf("Valor total IRRF: %.2lf\n", valor_total_irrf);
 	}
 
 	valor_total_irrf -= deducao_fixa;
@@ -230,6 +238,11 @@ int main() {
 
 	percentual_desconto_vale_alimentacao = valor_vale_alimentacao * 0.10;
 
+	total_descontos = valor_total_inss + valor_total_irrf + desconto_vale_transporte 
+	+ percentual_desconto_vale_alimentacao + custo_plano_saude;
+
+	salario_liquido = salario_bruto - total_descontos;
+
 	printf("--------------------|FOLHA SALARIAL|--------------------\n");
 	printf("Nome: %s\n", nome);
 	printf("Cargo: %s\n", cargo);
@@ -239,15 +252,19 @@ int main() {
 	printf("Horas Noturnas: R$ %.2lf\n", total_hora_noturna);
 	printf("Comissao: R$ %.2lf\n", comissao);
 	printf("Bonificacao: R$ %.2lf\n", bonificacao);
+	printf("Salario Bruto: R$ %.2lf\n", salario_bruto);
+	printf("-------------------------\n");
 	printf("INSS: R$ %.2lf\n", valor_total_inss);
 	if (valor_total_irrf > 0.00) {
 		printf("IRRF: R$ %.2lf\n", valor_total_irrf);
 	} else {
-		printf("IRRF: isento");
+		printf("IRRF: isento\n");
 	}
 	printf("Vale Transporte: R$ %.2lf\n", desconto_vale_transporte);
 	printf("Vale-alimentacao: R$ %.2lf\n", percentual_desconto_vale_alimentacao);
 	printf("Plano de Saude: R$ %.2lf\n", custo_plano_saude);
-	printf("Salario Bruto: R$ %.2lf\n", salario_bruto);
+	printf("Total de Descontos: R$ %.2lf\n", total_descontos);
+	printf("-------------------------\n");
+	printf("Salario Liquido: R$ %.2lf\n", salario_liquido);
 	printf("--------------------------------------------------------\n");
 }
