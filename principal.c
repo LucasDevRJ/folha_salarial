@@ -41,6 +41,9 @@ int main() {
 	double desconto_vale_transporte;
 	double valor_vale_alimentacao;
 	double percentual_desconto_vale_alimentacao;
+	double valor_plano_saude;
+	double percentual_plano_saude;
+	double custo_plano_saude;
 
 	printf("Digite o nome completo do funcionario: ");
 	fgets(nome, sizeof(nome), stdin);
@@ -78,7 +81,7 @@ int main() {
 	printf("S - Sim\n");
 	printf("Qualquer tecla - Nao\n");
 	printf("Cumpriu metas?\n");
-	printf("Digite S ou Qualquer tecla: \n");
+	printf("Digite S ou Qualquer tecla: ");
 	scanf("%s", &resposta_bonificacao);
 
 	resposta_bonificacao = toupper(resposta_bonificacao);
@@ -94,6 +97,14 @@ int main() {
 
 	printf("Digite o valor do vale-alimentacao: R$ ");
 	scanf("%lf", &valor_vale_alimentacao);
+
+	printf("Digite o valor do plano de saude: R$ ");
+	scanf("%lf", &valor_plano_saude);
+
+	if (valor_plano_saude > 0.00) {
+		printf("Digite o percentual do plano de saude pago pela empresa: ");
+		scanf("%lf", &percentual_plano_saude);
+	}
 	
 	//Lógica para gerar números aleatorios para a matrícula do funcionário
 	int segundos = time(0);
@@ -112,6 +123,8 @@ int main() {
 	percentual_comissao = percentual_comissao / 100;
 
 	comissao = valor_total_vendas * percentual_comissao;
+
+	custo_plano_saude = valor_plano_saude - (valor_plano_saude * (percentual_plano_saude / 100));
 
 	//bonificacao = 0;
 
@@ -227,9 +240,14 @@ int main() {
 	printf("Comissao: R$ %.2lf\n", comissao);
 	printf("Bonificacao: R$ %.2lf\n", bonificacao);
 	printf("INSS: R$ %.2lf\n", valor_total_inss);
-	printf("IRRF: R$ %.2lf\n", valor_total_irrf);
+	if (valor_total_irrf > 0.00) {
+		printf("IRRF: R$ %.2lf\n", valor_total_irrf);
+	} else {
+		printf("IRRF: isento");
+	}
 	printf("Vale Transporte: R$ %.2lf\n", desconto_vale_transporte);
 	printf("Vale-alimentacao: R$ %.2lf\n", percentual_desconto_vale_alimentacao);
+	printf("Plano de Saude: R$ %.2lf\n", custo_plano_saude);
 	printf("Salario Bruto: R$ %.2lf\n", salario_bruto);
 	printf("--------------------------------------------------------\n");
 }
