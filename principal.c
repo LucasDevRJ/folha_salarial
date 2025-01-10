@@ -71,6 +71,9 @@ int main() {
 	scanf("%d", &quantidade_vendida);
 
 	if (quantidade_vendida > 0) {
+		printf("Digite o valor unitario de cada venda: ");
+		scanf("%lf", &valor_venda);
+
 		printf("Digite o percentual de comissao: ");
 		scanf("%lf", &percentual_comissao);
 	}
@@ -124,14 +127,13 @@ int main() {
 
 	percentual_comissao = percentual_comissao / 100;
 
-	comissao = quantidade_vendida * percentual_comissao;
+	valor_total_vendas = valor_venda * quantidade_vendida;
+	comissao = valor_total_vendas * percentual_comissao;
 
-	if (valor_plano_saude > 0) {
-		custo_plano_saude = valor_plano_saude - (valor_plano_saude * (percentual_plano_saude / 100.00));
-	}
-	
+	custo_plano_saude = valor_plano_saude - (valor_plano_saude * (percentual_plano_saude / 100.00));
+
 	custo_vale_alimentacao = valor_vale_alimentacao - (valor_vale_alimentacao * (percentual_vale_alimentacao / 100.00));
-
+	
 	salario_bruto = salario_base + total_hora_extra + total_hora_noturna + comissao + bonificacao;
 
 	if (salario_bruto <= 1320.00 || salario_bruto > 1320.00) {
