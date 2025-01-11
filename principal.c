@@ -88,7 +88,7 @@ int main() {
 
 	if (resposta_bonificacao == 'S') {
 		printf("Digite o percentual da bonificacao: ");
-		scanf("%lf", &percentual_comissao);
+		scanf("%lf", &percentual_bonificacao);
 		bonificacao = salario_base * (percentual_bonificacao / 100.0);
 	}
 
@@ -132,7 +132,9 @@ int main() {
 
 	custo_plano_saude = valor_plano_saude - (valor_plano_saude * (percentual_plano_saude / 100.00));
 
-	custo_vale_alimentacao = valor_vale_alimentacao - (valor_vale_alimentacao * (percentual_vale_alimentacao / 100.00));
+	if (valor_vale_alimentacao > 0) {
+		custo_vale_alimentacao = valor_vale_alimentacao - (valor_vale_alimentacao * (percentual_vale_alimentacao / 100.00));
+	}
 	
 	salario_bruto = salario_base + total_hora_extra + total_hora_noturna + comissao + bonificacao;
 
@@ -140,46 +142,32 @@ int main() {
 		percentual_inss = 7.5 / 100;
 		double maior_valor = salario_bruto < 1320.00 ? salario_bruto : 1320.00;
 		valor_inss = maior_valor * percentual_inss; 
-		//printf("Percentual INSS: %lf\n", percentual_inss);
-		printf("INSS Faixa 1 R$ %.2lf\n", valor_inss);
 		valor_total_inss += valor_inss;
 	} 
 
 	if (salario_bruto >= 1320.01) {
 		percentual_inss = 9.0 / 100;
-		//printf("Percentual INSS: %lf\n", percentual_inss);
 		double maior_valor = salario_bruto < 2571.29 ? salario_bruto : 2571.29;
 		valor_inss = fabs((1320.01 - maior_valor)) * percentual_inss; 
-		//valor_inss = round(valor_inss * 100) / 100;
-		//valor_inss = floor(valor_inss * casas_decimais) / casas_decimais;
 		printf("INSS Faixa 2 R$ %.2lf\n", valor_inss);
 		valor_total_inss += valor_inss;
 	}
 
 	if (salario_bruto >= 2571.30) {
 		percentual_inss = 12.0 / 100;
-		//printf("Percentual INSS: %lf\n", percentual_inss);
 		double maior_valor = salario_bruto < 3856.94 ? salario_bruto : 3856.94;
 		valor_inss = fabs((2571.29 - maior_valor)) * percentual_inss; 
-		//valor_inss = floor(valor_inss * casas_decimais) / casas_decimais;
-		printf("INSS Faixa 3 R$ %.2lf\n", valor_inss);
 		valor_total_inss += valor_inss;
 	} 
 
 	if (salario_bruto >= 3856.95) {
 		percentual_inss = 14.0 / 100;
-		//printf("Percentual INSS: %lf\n", percentual_inss);
 		double maior_valor = salario_bruto < 4257.57 ? salario_bruto : 4257.57;
 		valor_inss = fabs((3856.95 - maior_valor)) * percentual_inss; 
-		//valor_inss = floor(valor_inss * casas_decimais) / casas_decimais;
-		printf("INSS Faixa 4 R$ %.2lf\n", valor_inss);
 		valor_total_inss += valor_inss;
 	}
 
-	//valor_total_inss = round(valor)
-
 	base_calculo_irrf = salario_bruto - valor_total_inss;
-	printf("Base de calculo IRRF: R$ %.2lf\n", base_calculo_irrf);
 
 	if (base_calculo_irrf <= 2112.00) {
 		percentual_irrf = 0.0;
@@ -193,9 +181,7 @@ int main() {
 		if (maior_valor < base_calculo_irrf) {
 			deducao_fixa = 142.80;
 		}
-		printf("IRRF Faixa 2 R$ %.2lf\n", valor_irrf);
 		valor_total_irrf += valor_irrf;
-		printf("Valor total IRRF: %.2lf\n", valor_total_irrf);
 	}
 
 	if (base_calculo_irrf >= 2826.66) {
@@ -205,10 +191,7 @@ int main() {
 		if (maior_valor < base_calculo_irrf) {
 			deducao_fixa = 354.80;
 		}
-		printf("IRRF Faixa 3 R$ %.2lf\n", valor_irrf);
 		valor_total_irrf += valor_irrf;
-		printf("Valor total IRRF: %.2lf\n", valor_total_irrf);
-
 	}
 
 	if (base_calculo_irrf >= 3751.06) {
@@ -218,34 +201,23 @@ int main() {
 		if (maior_valor < base_calculo_irrf) {
 			deducao_fixa = 636.13;
 		}
-		printf("IRRF Faixa 4 R$ %.2lf\n", valor_irrf);
 		valor_total_irrf += valor_irrf;
-		printf("Valor total IRRF: %.2lf\n", valor_total_irrf);
 	}
 
 	if (base_calculo_irrf > 4664.68) {
 		percentual_irrf = 27.5 / 100;
 		double maior_valor = base_calculo_irrf > 4664.68 ? base_calculo_irrf : 4664.68;
 		valor_irrf = fabs((4664.68 - maior_valor)) * percentual_irrf; 
-		printf("IRRF Faixa 5 R$ %.2lf\n", valor_irrf);
 		valor_total_irrf += valor_irrf;
-		printf("VALOR TOTAL IRRF: %.2lf \n", valor_total_irrf);
 		deducao_fixa = 869.36;
-		printf("Valor total IRRF: %.2lf\n", valor_total_irrf);
 	}
-
-	//valor_total_irrf -= deducao_fixa;
-
 
 	percentual_vale_transporte = salario_bruto * 0.06;
 	if (valor_gasto_vale_transporte > percentual_vale_transporte) {
 		desconto_vale_transporte = percentual_vale_transporte;
-		printf("Desconto do VT: %.2lf\n", desconto_vale_transporte);
 	} else if (valor_gasto_vale_transporte < percentual_vale_transporte) {
 		desconto_vale_transporte = valor_gasto_vale_transporte;
 	}
-
-	//percentual_desconto_vale_alimentacao = valor_vale_alimentacao * 0.10;
 
 	total_descontos = valor_total_inss + valor_total_irrf + desconto_vale_transporte 
 	+ custo_vale_alimentacao + custo_plano_saude;
