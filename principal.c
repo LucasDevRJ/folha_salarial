@@ -4,49 +4,19 @@
 #include <time.h>
 #include <math.h>
 #include <ctype.h>
+#define MEDIA_HORAS_TRABALHADAS_MES 220
 
 int main() {
-	char nome[50];
-	char cargo[50];
-	int matricula;
-	double salario_base;
-	double salario_bruto;
-	double salario_liquido;
-	double valor_hora;
-	int media_horas_trabalhadas_mes = 220;
-	int quantidade_horas_extras;
-	double valor_hora_extra;
-	double total_hora_extra;
-	int quantidade_horas_noturnas;
-	double valor_hora_noturna;
-	double total_hora_noturna;
-	double percentual_comissao;
-	int quantidade_vendida;
-	double valor_venda;
-	double valor_total_vendas;
-	double comissao;
-	char resposta_bonificacao;
-	double bonificacao;
-	double percentual_bonificacao;
-	double percentual_inss;
-	double valor_inss;
-	double valor_total_inss;
-	double base_calculo_irrf;
-	double percentual_irrf;
-	double deducao_fixa;
-	double valor_irrf;
-	double valor_total_irrf;
-	double valor_gasto_vale_transporte;
-	double percentual_vale_transporte;
-	double desconto_vale_transporte;
-	double valor_vale_alimentacao;
-	double percentual_vale_alimentacao;
-	double custo_vale_alimentacao;
-	double percentual_desconto_vale_alimentacao;
-	double valor_plano_saude;
-	double percentual_plano_saude;
-	double custo_plano_saude;
-	double total_descontos;
+	char nome[50], cargo[50], resposta_bonificacao;
+	int matricula, quantidade_horas_extras, quantidade_horas_noturnas, quantidade_vendida;
+	double salario_base, salario_bruto, salario_liquido, valor_hora, valor_hora_extra,
+	total_hora_extra, valor_hora_noturna, total_hora_noturna, percentual_comissao,
+	valor_venda, valor_total_vendas, comissao, bonificacao, percentual_bonificacao,
+	percentual_inss, valor_inss, valor_total_inss, base_calculo_irrf, percentual_irrf,
+	deducao_fixa, valor_irrf, valor_total_irrf, valor_gasto_vale_transporte,
+	percentual_vale_transporte, desconto_vale_transporte, valor_vale_alimentacao,
+	percentual_vale_alimentacao, custo_vale_alimentacao, percentual_desconto_vale_alimentacao,
+	valor_plano_saude, percentual_plano_saude, custo_plano_saude, total_descontos;
 
 	printf("Digite o nome completo do funcionario: ");
 	fgets(nome, sizeof(nome), stdin);
@@ -117,7 +87,7 @@ int main() {
 	int numero_aleatorio = rand();
 	matricula = numero_aleatorio % 99999;
 
-	valor_hora = salario_base / media_horas_trabalhadas_mes;
+	valor_hora = salario_base / MEDIA_HORAS_TRABALHADAS_MES;
 
 	valor_hora_extra = valor_hora + (valor_hora * 0.50);
 	total_hora_extra = quantidade_horas_extras * valor_hora_extra;
