@@ -5,6 +5,7 @@
 ![Static Badge](https://img.shields.io/badge/Sim%20-%20Autoral?style=for-the-badge&label=Autoral)
 ![Static Badge](https://img.shields.io/badge/Finalizado%20-%20Autoral?style=for-the-badge&label=Status)
 ![Static Badge](https://img.shields.io/badge/C%20-%20Linguagem?style=for-the-badge&label=Linguagem)
+![Static Badge](https://img.shields.io/badge/11/2024%20-%2011/2024?style=for-the-badge&label=Data)
 
 ## Descrição
 O projeto calcula a folha salarial de um funcionário a partir de alguns dados do funcionário, como o nome, cargo, salário base, se fez horas extras ou não, horas noturnas, se tem comissão, bonificação. Após todos esses dados coletados, o programa faz calculos do salário bruto, INSS, IRRF, Vale transporte, Vale-alimentação, Plano de saúde. Isso tudo sendo contabilizado como descontos na folha. Ao final é calculado o salário líquido do profissional.
@@ -19,7 +20,7 @@ O projeto calcula a folha salarial de um funcionário a partir de alguns dados d
 # 📁 Acesso ao projeto
 
 1. Tenha uma IDE;
-2. Baixe esse projeto e coloque-o na sua IDE;
+2. Baixe esse <a href="https://github.com/LucasDevRJ/folha_salarial/archive/refs/heads/main.zip">projeto</a> e coloque-o na sua IDE;
 
 # 🛠️ Abrir e rodar o projeto
 
