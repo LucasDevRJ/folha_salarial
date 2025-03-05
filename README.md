@@ -21,6 +21,7 @@ O projeto calcula a folha salarial de um funcionário a partir de alguns dados d
 
 1. Tenha uma IDE;
 2. Baixe esse <a href="https://github.com/LucasDevRJ/folha_salarial/archive/refs/heads/main.zip">projeto</a> e coloque-o na sua IDE;
+3. Descompacte o projeto no seu computador.
 
 # 🛠️ Abrir e rodar o projeto
 
